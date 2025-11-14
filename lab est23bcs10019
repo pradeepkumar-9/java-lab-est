@@ -1,15 +1,10 @@
 import java.util.Scanner;
-
 public class ATMSystem {
-
-    // Method to validate PIN
     static void validatePin(int pin) throws InvalidPinException {
         if (pin < 1000 || pin > 9999) {
             throw new InvalidPinException("PIN must be a 4-digit number!");
         }
     }
-
-    // Method to validate withdrawal amount
     static void validateAmount(int amount) throws InvalidAmountException {
         if (amount <= 0) {
             throw new InvalidAmountException("Amount must be greater than zero!");
@@ -18,49 +13,34 @@ public class ATMSystem {
             throw new InvalidAmountException("Amount must be in multiples of 100!");
         }
     }
-
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-
         try {
-            // User PIN input
             System.out.print("Enter your 4-digit PIN: ");
             int pin = sc.nextInt();
             validatePin(pin);
-
-            // Amount input
             System.out.print("Enter amount to withdraw: ");
             int amount = sc.nextInt();
             validateAmount(amount);
-
-            // If both validations pass
             System.out.println("Transaction Successful!");
             System.out.println("₹" + amount + " withdrawn from your account.");
-
         } catch (InvalidPinException e) {
             System.out.println("PIN Error: " + e.getMessage());
-
         } catch (InvalidAmountException e) {
             System.out.println("Amount Error: " + e.getMessage());
-
         } catch (Exception e) {
             System.out.println("Unexpected Error! Please enter valid inputs.");
         } finally {
             System.out.println("Thank you for using the ATM.");
         }
-
         sc.close();
     }
 }
-
-// Custom exception for invalid PIN
 class InvalidPinException extends Exception {
     public InvalidPinException(String message) {
         super(message);
     }
 }
-
-// Custom exception for invalid amount
 class InvalidAmountException extends Exception {
     public InvalidAmountException(String message) {
         super(message);
